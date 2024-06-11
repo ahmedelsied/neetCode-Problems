@@ -7,7 +7,7 @@ class Solution {
      */
     function isValid($s)
     {
-        $closingStackBracket = "";
+        $closingStackBracket = [];
         $bracketOpensMap = [
             "(" => ")",
             "{" => "}",
@@ -15,14 +15,13 @@ class Solution {
         ];
         for($i=0;$i<strlen($s);$i++){
             if(isset($bracketOpensMap[$s[$i]])){
-                $closingStackBracket .= $bracketOpensMap[$s[$i]];
+                $closingStackBracket[] = $bracketOpensMap[$s[$i]];
                 continue;
             }
-            if($s[$i] != $closingStackBracket[(strlen($closingStackBracket)-1)]){
+            if($s[$i] != $closingStackBracket[(count($closingStackBracket)-1)]){
                 return false;
-                continue;
             }
-            $closingStackBracket = substr_replace($closingStackBracket, '', -1);
+            array_pop($closingStackBracket);
         }
         return empty($closingStackBracket);
 
